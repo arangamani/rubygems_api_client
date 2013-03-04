@@ -36,7 +36,7 @@ module RubygemsApi
       "password_base64"
     ].freeze
 
-    def initialize(args)
+    def initialize(args = {})
       args.each do |key, value|
         if value && VALID_PARAMS.include?(key.to_s)
           instance_variable_set("@#{key}", value)
