@@ -29,17 +29,17 @@ module RubygemsApi
       end
 
       def total
-        json = @client.get("downloads")
+        json = @client.get("downloads.json")
         json["total"]
       end
 
       def top
-        json = @client.get("downloads/top")
+        json = @client.get("downloads/top.json")
         json["gems"]
       end
 
       def all
-        json = @client.get("downloads/all")
+        json = @client.get("downloads/all.json")
         json["gems"]
       end
     end

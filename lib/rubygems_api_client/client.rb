@@ -21,14 +21,14 @@
 #
 
 require 'rubygems'
-require 'net/http'
+require 'rest-client'
 require 'json'
 
 
 module RubygemsApi
   class Client
 
-    URL = "https://rubygems.org"
+    BASE_URL = "https://rubygems.org/api/v1"
     VALID_PARAMS = [
       "api_key",
       "username",
@@ -52,26 +52,21 @@ module RubygemsApi
       RubygemsApi::Client::Downloads.new(self)
     end
 
-    def get(resource, query = nil)
-      http = Net::HTTP.start("rubygems.org")
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      response = nil
-      endpoint = "/api/v1/#{resource}.json"
-      endpoint << "?#{query}" unless query.nil?
-      puts "GET #{endpoint}"
-      if @api_key
-        response = http.get2(URI.encode(endpoint), {"Authorization" => @api_key})
-      else
-        response = http.get2(URI.encode(endpoint))
-      end
-      JSON.load(response.body)
+    def get(resource_url, params = nil)
+      hash = {}
+      hash = {"Authorization" => @api_key} if @api_key
+      hash.merge!({:params => params})
+      to_get = "#{BASE_URL}/#{resource_url}"
+      puts "[INFO] PUT #{to_get}, #{hash.inspect}"
+      response = RestClient.get(to_get, hash)
+      JSON.load(response)
     end
 
-    def get_paginated(resource, query = nil)
+    def get_paginated(resource_url, params = nil)
       matches = []
       page = 1
       while true
-        response = get(resource, "#{query}&page=#{page}")
+        response = get(resource_url, params.merge!({:page => page}))
         break if response.length == 0
         matches += response
         page += 1

@@ -25,7 +25,7 @@ module RubygemsApi
     MAJOR = 0
     MINOR = 0
     TINY  = 0
-    PRE   = 1
+    PRE   = "pre1"
     VERSION = [MAJOR, MINOR, TINY, PRE].compact.join('.')
   end
 end

@@ -29,11 +29,11 @@ module RubygemsApi
       end
 
       def get_my_gems
-        @client.get("gems")
+        @client.get("gems.json")
       end
 
       def search(search_string)
-        @client.get_paginated("search", "query=#{search_string}")
+        @client.get_paginated("search.json", {:query => search_string})
       end
 
       def add
