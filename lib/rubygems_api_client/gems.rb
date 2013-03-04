@@ -40,11 +40,22 @@ module RubygemsApi
 
       end
 
-      def yank
-
+      def yank(name, version, platform = nil)
+        params = {
+          :gem_name => name,
+          :version => version
+        }
+        params.merge!({:platform => platform})
+        @client.delete("/gems/yank", params)
       end
 
-      def unyank
+      def unyank(name, version, platform = nil)
+        params = {
+          :gem_name => name,
+          :version => version
+        }
+        params.merge!({:platform => platform})
+        @client.put("/gems/unyank", nil, params)
 
       end
 

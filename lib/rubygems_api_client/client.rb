@@ -57,7 +57,7 @@ module RubygemsApi
       hash = {"Authorization" => @api_key} if @api_key
       hash.merge!({:params => params})
       to_get = "#{BASE_URL}/#{resource_url}"
-      puts "[INFO] PUT #{to_get}, #{hash.inspect}"
+      puts "[INFO] GET #{to_get}, #{hash.inspect}"
       response = RestClient.get(to_get, hash)
       JSON.load(response)
     end
@@ -74,8 +74,36 @@ module RubygemsApi
       matches
     end
 
-    def post(resource)
+    def post(resource_url, payload, params = nil)
+      hash = {}
+      hash = {"Authorization" => @api_key} if @api_key
+      hash.merge!({:params => params})
+      hash.merge!({:content_length => 0}) if payload.nil?
+      to_get = "#{BASE_URL}/#{resource_url}"
+      puts "[INFO] POST #{to_get}, #{hash.inspect}"
+      response = RestClient.post(to_get, payload, hash)
+      response
+    end
 
+    def put(resource_url, payload = nil, params = nil)
+      hash = {}
+      hash = {"Authorization" => @api_key} if @api_key
+      hash.merge!({:params => params})
+      hash.merge!({:content_length => 0}) if payload.nil?
+      to_get = "#{BASE_URL}/#{resource_url}"
+      puts "[INFO] PUT #{to_get}, #{hash.inspect}"
+      response = RestClient.put(to_get, payload, hash)
+      response
+    end
+
+    def delete(resource_url, params = nil)
+      hash = {}
+      hash = {"Authorization" => @api_key} if @api_key
+      hash.merge!({:params => params})
+      to_get = "#{BASE_URL}/#{resource_url}"
+      puts "[INFO] DELETE #{to_get}, #{hash.inspect}"
+      response = RestClient.delete(to_get, hash)
+      response
     end
 
   end
