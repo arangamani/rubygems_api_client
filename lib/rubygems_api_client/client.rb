@@ -59,9 +59,9 @@ module RubygemsApi
       endpoint = "/api/v1/#{resource}.json"
       endpoint << "?#{query}" unless query.nil?
       if @api_key
-        response = http.get2(endpoint, {"Authorization" => @api_key})
+        response = http.get2(URI.encode(endpoint), {"Authorization" => @api_key})
       else
-        response = http.get2(endpoint)
+        response = http.get2(URI.encode(endpoint))
       end
       JSON.load(response.body)
     end
