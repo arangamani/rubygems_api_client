@@ -33,7 +33,7 @@ module RubygemsApi
       end
 
       def search(search_string)
-        @client.get("search", "query=#{search_string}")
+        @client.get_paginated("search", "query=#{search_string}")
       end
 
       def add

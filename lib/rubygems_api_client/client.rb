@@ -58,12 +58,25 @@ module RubygemsApi
       response = nil
       endpoint = "/api/v1/#{resource}.json"
       endpoint << "?#{query}" unless query.nil?
+      puts "GET #{endpoint}"
       if @api_key
         response = http.get2(URI.encode(endpoint), {"Authorization" => @api_key})
       else
         response = http.get2(URI.encode(endpoint))
       end
       JSON.load(response.body)
+    end
+
+    def get_paginated(resource, query = nil)
+      matches = []
+      page = 1
+      while true
+        response = get(resource, "#{query}&page=#{page}")
+        break if response.length == 0
+        matches += response
+        page += 1
+      end
+      matches
     end
 
     def post(resource)
