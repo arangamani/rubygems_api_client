@@ -20,7 +20,31 @@
 # THE SOFTWARE.
 #
 
-require "rubygems_api_client/client"
-require "rubygems_api_client/gems"
-require "rubygems_api_client/downloads"
-require "rubygems_api_client/versions"
+module RubygemsApi
+  class Client
+    class Versions
+
+      def initialize(client)
+        @client = client
+      end
+
+      def get(name)
+        @client.get("versions/#{name}.json")
+      end
+
+      def get_downloads(name, version, start_date = nil, end_date = nil)
+        params = {}
+        params = {
+          :from => start_date,
+          :to => end_date
+        } if start_date && end_date
+        if params.empty?
+          @client.get("versions/#{name}-#{version}/downloads.json")
+        else
+          @client.get("versions/#{name}-#{version}/downloads/search.json", params)
+        end
+      end
+
+    end
+  end
+end
