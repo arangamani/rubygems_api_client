@@ -35,6 +35,19 @@ module RubygemsApi
       def search(search_string)
         @client.get("search", "query=#{search_string}")
       end
+
+      def add
+
+      end
+
+      def yank
+
+      end
+
+      def unyank
+
+      end
+
     end
   end
 end
