@@ -20,10 +20,15 @@
 # THE SOFTWARE.
 #
 
-require "rubygems_api_client/activity"
-require "rubygems_api_client/client"
-require "rubygems_api_client/downloads"
-require "rubygems_api_client/gems"
-require "rubygems_api_client/owners"
-require "rubygems_api_client/versions"
-require "rubygems_api_client/web_hooks"
+module RubygemsApi
+  class Client
+    class WebHooks
+
+      def initialize(client)
+        @client = client
+      end
+
+    end
+  end
+end
+

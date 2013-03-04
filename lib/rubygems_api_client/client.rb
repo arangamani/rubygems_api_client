@@ -44,12 +44,16 @@ module RubygemsApi
       end if args.is_a? Hash
     end
 
-    def gems
-      RubygemsApi::Client::Gems.new(self)
+    def activity
+      RubygemsApi::Client::Activity.new(self)
     end
 
     def downloads
       RubygemsApi::Client::Downloads.new(self)
+    end
+
+    def gems
+      RubygemsApi::Client::Gems.new(self)
     end
 
     def versions
@@ -58,6 +62,10 @@ module RubygemsApi
 
     def owners
       RubygemsApi::Client::Owners.new(self)
+    end
+
+    def web_hooks
+      RubygemsApi::Client::WebHooks.new(self)
     end
 
     def get(resource_url, params = nil)
