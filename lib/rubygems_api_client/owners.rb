@@ -20,8 +20,22 @@
 # THE SOFTWARE.
 #
 
-require "rubygems_api_client/client"
-require "rubygems_api_client/downloads"
-require "rubygems_api_client/gems"
-require "rubygems_api_client/owners"
-require "rubygems_api_client/versions"
+module RubygemsApi
+  class Client
+    class Owners
+
+      def initialize(client)
+        @client = client
+      end
+
+      def list(gem)
+        @client.get("gems/#{gem}/owners.json")
+      end
+
+      def gems(owner)
+        @client.get("owners/#{owner}/gems.json")
+      end
+
+    end
+  end
+end

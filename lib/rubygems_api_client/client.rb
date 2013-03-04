@@ -56,6 +56,10 @@ module RubygemsApi
       RubygemsApi::Client::Versions.new(self)
     end
 
+    def owners
+      RubygemsApi::Client::Owners.new(self)
+    end
+
     def get(resource_url, params = nil)
       hash = {}
       hash = {"Authorization" => @api_key} if @api_key
