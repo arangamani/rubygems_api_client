@@ -20,6 +20,19 @@
 # THE SOFTWARE.
 #
 
-require "rubygems_api_client/client"
-require "rubygems_api_client/gems"
-require "rubygems_api_client/downloads"
+module RubygemsApi
+  class Client
+    class Downloads
+
+      def initialize(client)
+        @client = client
+      end
+
+      def total
+        json = @client.get("downloads")
+        json["total"]
+      end
+
+    end
+  end
+end

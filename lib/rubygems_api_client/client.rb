@@ -48,6 +48,10 @@ module RubygemsApi
       RubygemsApi::Client::Gems.new(self)
     end
 
+    def downloads
+      RubygemsApi::Client::Downloads.new(self)
+    end
+
     def get(resource, query = nil)
       http = Net::HTTP.start("rubygems.org")
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
