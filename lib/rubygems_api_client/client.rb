@@ -48,19 +48,22 @@ module RubygemsApi
       RubygemsApi::Client::Gems.new(self)
     end
 
-    def get(resource)
+    def get(resource, query = nil)
       http = Net::HTTP.start("rubygems.org")
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       response = nil
+      endpoint = "/api/v1/#{resource}.json"
+      endpoint << "?#{query}" unless query.nil?
       if @api_key
-        response = http.get2(
-          "/api/v1/#{resource}.json",
-          {"Authorization" => @api_key}
-        )
+        response = http.get2(endpoint, {"Authorization" => @api_key})
       else
-        response = http.get2("/api/v1/#{resource}.json")
+        response = http.get2(endpoint)
       end
       JSON.load(response.body)
+    end
+
+    def post(resource)
+
     end
 
   end

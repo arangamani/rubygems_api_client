@@ -32,6 +32,9 @@ module RubygemsApi
         @client.get("gems")
       end
 
+      def search(search_string)
+        @client.get("search", "query=#{search_string}")
+      end
     end
   end
 end
